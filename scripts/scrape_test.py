@@ -34,7 +34,7 @@ ingredient_descript_list = []
 for description in range(len(ingredient_descript)):
     ingredient_descript_list.append(ingredient_descript[description].text)
 
-ingredient_rating = driver.find_elements_by_xpath('//td[@class="col-rating ingredient-rating rating-good"]')
+ingredient_rating = driver.find_elements_by_xpath('//td[@class="col-rating ingredient-rating rating-*"]')
 
 ingredient_ratings = []
 for rating in range(len(ingredient_rating)):
