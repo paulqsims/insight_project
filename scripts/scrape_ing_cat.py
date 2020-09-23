@@ -57,4 +57,4 @@ df = df.append(temp_df) # appends to master dataframe
 
 driver.close()
 
-df.to_csv(f"{path}/data/test_scrape.csv")
+df.to_csv(f"{path}/data/ingredient_cat_scrape.csv")
