@@ -587,11 +587,22 @@ multinomial_res = pd.DataFrame(clf.coef_)
 predicted_clusters = clf.predict (X_test)
 predicted_cluster_prob = clf.predict_proba(X_test)
 
+max_prob = []
+for row in predicted_cluster_prob:
+    #for prob in row:
+    max_prob.append(max(row))
+
+
+X_test['predicted_cluster_prob'] = max_prob
 X_test['predicted_cluster_label'] = predicted_clusters
+X_test['product'] = df['Product']
 
 label1 = X_test['predicted_cluster_label']==1
 X_test2 = X_test[label1]
 
+# Print filtered data
+X_test3 = X_test2[['predicted_cluster_label','predicted_cluster_prob', 'product']].sort_values(by='predicted_cluster_prob',ascending=False).head(5)
+X_test3
 
 #### SVD Example
 #https://cmdlinetips.com/2019/05/singular-value-decomposition-svd-in-python/
