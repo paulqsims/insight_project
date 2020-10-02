@@ -567,7 +567,7 @@ y = np.array(sparse_df['clusters'])
 y = y.reshape(-1,1)
 
 # Split into train, test
-X_train, X_test, y_train, y_test = train_test_split(df_features, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(sparse_df, y, test_size=0.2, random_state=42)
 
 # Set up and fitlogistic regression
 clf = LogisticRegression(solver='liblinear',multi_class='ovr').fit(X_train, y_train.ravel())
@@ -580,9 +580,17 @@ a = accuracy_score(y_test, y_pred)
 print("Accuracy Score in % : ")
 print(a * 100)
 
+# Get coefficients
+multinomial_res = pd.DataFrame(clf.coef_)
 
+# Get predicted cluster labels and predicter probabilities of each point for each cluster
+predicted_clusters = clf.predict (X_test)
+predicted_cluster_prob = clf.predict_proba(X_test)
 
+X_test['predicted_cluster_label'] = predicted_clusters
 
+label1 = X_test['predicted_cluster_label']==1
+X_test2 = X_test[label1]
 
 
 #### SVD Example
