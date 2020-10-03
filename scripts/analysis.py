@@ -497,6 +497,17 @@ dat_plot = pd.DataFrame(tsvd.explained_variance_ratio_[0:200])
 # Eigenvalues
 tsvd.explained_variance_
 
+# test --------
+# Test for getting SVD feature for a new product
+test1 = data.iloc[1]
+# Create a TSVD
+tsvd = TruncatedSVD(n_components=100)
+# Conduct TSVD on sparse matrix
+X_sparse_tsvd = tsvd.fit(data).transform(data)
+sparse_df = pd.DataFrame(X_sparse_tsvd)
+tsvd.explained_variance_ratio_[0:200].sum()
+# End test
+
 # Plot 
 
 ax = sns.barplot(x="day", y="tsvd.explained_variance_ratio_[0:2]", data=dat_plot)
@@ -583,12 +594,16 @@ multinomial_res = pd.DataFrame(clf.coef_)
 predicted_clusters = clf.predict (X_test)
 predicted_cluster_prob = clf.predict_proba(X_test)
 
+# test --------
 # Test for getting predicted values for a new product
-test_row = X_test.iloc[1]
+test_row = X_test.iloc[30]
 #test_row = test_row.iloc[0:102].astype('float')
-test_row = test_row.values.reshape(-1,1)
-clf.predict(test_row)
+test_row = test_row.values.reshape(1,-1)
+predicted_label = clf.predict(test_row)
+print(predicted_label)
 # end test----
+
+
 
 max_prob = []
 for row in predicted_cluster_prob:
