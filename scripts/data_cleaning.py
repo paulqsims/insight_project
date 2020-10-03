@@ -11,24 +11,7 @@ path = rootpath.detect()
 df_ingredient_raw = pd.read_csv(f"{path}/data/ingredient_cat_scrape.csv",
  index_col=0, nrows=1832)
 
-## Product information
-df_raw = pd.read_csv(f"{path}/data/rating1_scrape.csv",
- index_col=0)
-
-df_list = []
-for df in range(1,6):
-    (df_list.append(pd.read_csv(f"{path}/data/rating{df}_scrape.csv",
-                    index_col=0)))
-df_product_ratings = pd.concat(df_list)
-
-df_product_ratings.head()
-df_product_ratings.describe()
-
-
-
-
-
-# Make a copy of the df
+# Make a copy of the dfs
 df_ingred_cat = df_ingredient_raw.copy()
 
 # Examine df
