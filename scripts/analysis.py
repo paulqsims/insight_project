@@ -480,6 +480,15 @@ from sklearn import datasets
 import numpy as np
 import seaborn as sns
 
+# Read in data
+df = pd.read_csv(f"{path}/data/temp.csv",
+                  index_col=False)
+
+# Ingredient Features
+df_features = df.drop('Product', axis=1)
+df_features = df.drop(columns = ['product_index', 'Product', 'product_rating'], axis=1)
+
+
 # Make sparse matrix
 X_sparse = csr_matrix(data)
 
