@@ -497,6 +497,7 @@ dat_plot = pd.DataFrame(tsvd.explained_variance_ratio_[0:200])
 # Eigenvalues
 tsvd.explained_variance_
 
+# test
 # test --------
 # Test for getting SVD feature for a new product
 test1 = data.iloc[1]
