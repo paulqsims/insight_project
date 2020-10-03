@@ -463,15 +463,6 @@ from sklearn.pipeline import Pipeline
 from sklearn.decomposition import TruncatedSVD
 from sklearn.linear_model import LogisticRegression
 
-data = df_features
-# define transform
-svd = TruncatedSVD()
-# prepare transform on dataset
-svd.fit(data)
-# apply transform to dataset
-transformed = svd.transform(data)
-
-
 # Load libraries
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import TruncatedSVD
@@ -486,11 +477,7 @@ df = pd.read_csv(f"{path}/data/temp.csv",
 
 # Ingredient Features
 df_features = df.drop('Product', axis=1)
-df_features = df.drop(columns = ['product_index', 'Product', 'product_rating'], axis=1)
-
-
-# Make sparse matrix
-X_sparse = csr_matrix(data)
+data = df_features
 
 # Create a TSVD
 tsvd = TruncatedSVD(n_components=100)
@@ -576,7 +563,7 @@ y = np.array(sparse_df['clusters'])
 y = y.reshape(-1,1)
 
 # Split into train, test
-X_train, X_test, y_train, y_test = train_test_split(sparse_df, y, test_size=0.2, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(mn_features, y, test_size=0.2, random_state=42)
 
 # Set up and fitlogistic regression
 clf = LogisticRegression(solver='liblinear',multi_class='ovr').fit(X_train, y_train.ravel())
@@ -595,6 +582,13 @@ multinomial_res = pd.DataFrame(clf.coef_)
 # Get predicted cluster labels and predicter probabilities of each point for each cluster
 predicted_clusters = clf.predict (X_test)
 predicted_cluster_prob = clf.predict_proba(X_test)
+
+# Test for getting predicted values for a new product
+test_row = X_test.iloc[1]
+#test_row = test_row.iloc[0:102].astype('float')
+test_row = test_row.values.reshape(-1,1)
+clf.predict(test_row)
+# end test----
 
 max_prob = []
 for row in predicted_cluster_prob:
