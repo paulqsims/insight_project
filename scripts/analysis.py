@@ -604,6 +604,8 @@ X_test2 = X_test[label1]
 X_test3 = X_test2[['predicted_cluster_label','predicted_cluster_prob', 'product']].sort_values(by='predicted_cluster_prob',ascending=False).head(5)
 X_test3
 
+X_test3.to_csv(f'{path}/data/app_ex.csv')
+
 #### SVD Example
 #https://cmdlinetips.com/2019/05/singular-value-decomposition-svd-in-python/
 import pandas as pd
