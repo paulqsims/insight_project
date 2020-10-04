@@ -98,8 +98,15 @@ item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/
 item_name_element
 
 # Product rating
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]//span[@class]")
+item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
 item_name_element
+
+# Prop of respondents who would recommend product
+item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
+item_name_element
+
+
+
 
 //span[@class,'pr-accessible-text']
 
