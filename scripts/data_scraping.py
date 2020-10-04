@@ -8,6 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import NoSuchElementException
 import time 
 import pandas as pd
 import rootpath
@@ -109,7 +110,29 @@ item_name_element
 item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
 item_name_element
 
+# Iterate over links to extract text data
+for link in product_links:
+    time.sleep(5)
+    driver.get(link)
+    item_name_element = driver.find_elements_by_xpath("//h1[@class='product-name']")[0].text
+    item_names.append(item_name_element)
+    try:
+        ingredient_element = driver.find_element_by_css_selector("div.ingredients").get_attribute("textContent")
+    except NoSuchElementException: 
+        ingredient_element = math.nan
+    item_ingredients.append(ingredient_element)
+    # CHANGE ratings-stars number for each rating score!!!!
+    rating_element = driver.find_element_by_xpath("//span[@class='product-rating rating stars-1']").get_attribute("outerHTML")
+    item_rating.append(rating_element)
 
+driver.get('https://www.ulta.com/pineapple-enzyme-pore-clearing-cleanser?productId=pimprod2018750')
+
+product_ratings = []
+try:
+    product_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
+except NoSuchElementException: 
+    product_rating = math.nan
+product_ratings.append(product_rating)
 
 
 
