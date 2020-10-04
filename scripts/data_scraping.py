@@ -34,12 +34,12 @@ driver = webdriver.Chrome(f"{path}/chromedriver")
 driver.get('https://www.ulta.com/skin-care-cleansers-face-wash?N=27gsZ1z13p3j')
 
 # Extract all html link references for webpage
-# Wait 5 seconds before extracting them
+# Wait 5 seconds for page to load before extracting them
 time.sleep(5)
 item_list = driver.find_elements_by_xpath("/html/body/div[1]/div[6]/div[2]/div[2]/div[6]/div/div/ul//div[contains(@class, 'productQvContainer')]/a[@href]")
 # Note from //div[contains] is the wildcard part that selects each individual product link
 
-# Convert selenium ref info to href links and store them in a vector
+# Convert selenium refs info to href links and store them in a vector
 product_links = []
 for i, link in enumerate(item_list):
     # print(link.get_attribute('href'))
@@ -57,7 +57,7 @@ prod_ratings = []
 prod_respondrecs = []
 prod_reviewtotals = []
 
-# Iterate over links to extract text data
+# Iterate over links from webpage of products to extract text data
 for link in product_links:
     time.sleep(5)
     driver.get(link)
