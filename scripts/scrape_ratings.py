@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 import time 
 import pandas as pd
 import rootpath
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 import math
 
 # Set root path for project
