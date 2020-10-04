@@ -105,10 +105,12 @@ item_name_element
 item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
 item_name_element
 
+# Total number of reviews
+item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
+item_name_element
 
 
 
-//span[@class,'pr-accessible-text']
 
 
 
