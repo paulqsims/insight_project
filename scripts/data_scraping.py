@@ -28,15 +28,9 @@ driver = webdriver.Chrome(f"{path}/chromedriver")
 # Concern: 
 # ---------------------
 
-driver.get('https://www.ulta.com/skin-care-cleansers-face-wash?N=27gsZ1z13p3j')
-
-# Don't need since not writing code to loop through pages
-# Generate urls for different ratings
-# product_links = []
-# for page in range(1,6):
-#     ratings_webpages.append(f"https://www.beautypedia.com/skin-care/?size=96&rating[0]={page}")
-
+# -----------
 # Page 1 of 3
+# ----------- 
 driver.get('https://www.ulta.com/skin-care-cleansers-face-wash?N=27gsZ1z13p3j')
 
 # Extract all html link references for webpage
@@ -103,6 +97,26 @@ for link in product_links:
     except NoSuchElementException: 
         prod_reviewtotal = math.nan
     prod_reviewtotals.append(prod_reviewtotal)
+
+# Combine product info lists into dataframe and export as CSV for pandas processing
+df = (pd.DataFrame(columns=['brand','product','size', 'price', 'details', 
+                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates master dataframe 
+
+# list of each ingredient with ratings and categories paired
+data_tuples = (list(zip(brand_names[1:],prod_names[1:],prod_sizes[1:],
+                       prod_prices[1:], prod_details[1:],
+                       prod_ingredientlists[1:], prod_ratings[1:],
+                       prod_respondrecs[1:], prod_reviewtotals[1:]))) 
+# Create dataframe of tuple lists
+temp_df = (pd.DataFrame(data_tuples,
+                        columns=['brand','product','size', 'price', 'details',
+                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates dataframe of each tuple in list
+df = df.append(temp_df)
+
+driver.close()
+
+# Export to csv
+df.to_csv(f"{path}/data/cleansers_face-wash_oilyskin_pg1.csv")
 
 # Test Area ----
 
