@@ -52,78 +52,88 @@ for i, link in enumerate(item_list):
     # Fetch and store the links
     product_links.append(link.get_attribute('href'))
 
-# Create empty lists to store results in 
+# Create empty lists to store results in for each html element
 brand_names = []
 prod_names = []
-prod_ingredients = []
-prod_size = []
-prod_price = []
+prod_sizes = []
+prod_prices = []
+prod_details = []
+prod_ingredientlists = []
+prod_ratings = []
+prod_respondrecs = []
+prod_reviewtotals = []
 
 # Iterate over links to extract text data
 for link in product_links:
     time.sleep(5)
     driver.get(link)
-    item_name_element = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
-    item_names.append(item_name_element)
+    # Brand name
+    brand_name = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
+    brand_names.append(brand_name)
+    # Product name
+    prod_name = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
+    prod_names.append(prod_name)
+    # Product size
+    prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
+    prod_sizes.append(prod_name)
+    # Product price
+    prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span")[0].text
+    prod_prices.append(prod_price)
+    # Product details
+    prod_detail = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
+    prod_details.append(prod_detail)
+    # Product ingredients
+    prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].text
+    prod_ingredientlists.append(prod_ingredientlist)
+    # Product average rating
     try:
-        ingredient_element = driver.find_element_by_css_selector("div.ingredients").get_attribute("textContent")
+        prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
     except NoSuchElementException: 
-        ingredient_element = math.nan
-    item_ingredients.append(ingredient_element)
-    # CHANGE ratings-stars number for each rating score!!!!
-    rating_element = driver.find_element_by_xpath("//span[@class='product-rating rating stars-1']").get_attribute("outerHTML")
-    item_rating.append(rating_element)
+        prod_rating = math.nan
+    prod_ratings.append(prod_rating)
+    # Product proportion of respondants who would recommend product to friends
+    try:
+        prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
+    except NoSuchElementException: 
+        prod_respondrec = math.nan
+    prod_respondrecs.append(prod_respondrec)
+    # Product total number of reviews
+    try:
+        prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
+    except NoSuchElementException: 
+        prod_reviewtotal = math.nan
+    prod_reviewtotals.append(prod_reviewtotal)
 
 # Test Area ----
 
 driver.get('https://www.ulta.com/face-cleanser?productId=xlsImpprod13491007')
+
 # Brand name
-item_name_element = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
+brand_name = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
 
 # Product name
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
+prod_name = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
 
 # Product size
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
+prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
 
 # Product price
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span")[0].text
-item_name_element
+prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span")[0].text
 
 # Product details
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
-item_name_element
+prod_detail = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
 
 # Product ingredients
-item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].text
-item_name_element
+prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].text
 
 # Product rating
-item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
-item_name_element
+prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
 
 # Prop of respondents who would recommend product
-item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
-item_name_element
+prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
 
 # Total number of reviews
-item_name_element = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
-item_name_element
-
-# Iterate over links to extract text data
-for link in product_links:
-    time.sleep(5)
-    driver.get(link)
-    item_name_element = driver.find_elements_by_xpath("//h1[@class='product-name']")[0].text
-    item_names.append(item_name_element)
-    try:
-        ingredient_element = driver.find_element_by_css_selector("div.ingredients").get_attribute("textContent")
-    except NoSuchElementException: 
-        ingredient_element = math.nan
-    item_ingredients.append(ingredient_element)
-    # CHANGE ratings-stars number for each rating score!!!!
-    rating_element = driver.find_element_by_xpath("//span[@class='product-rating rating stars-1']").get_attribute("outerHTML")
-    item_rating.append(rating_element)
+prod_totalreview = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
 
 driver.get('https://www.ulta.com/pineapple-enzyme-pore-clearing-cleanser?productId=pimprod2018750')
 
