@@ -52,17 +52,17 @@ for i, link in enumerate(item_list):
     product_links.append(link.get_attribute('href'))
 
 # Create empty lists to store results in 
+brand_names = []
 prod_names = []
 prod_ingredients = []
 prod_size = []
 prod_price = []
 
-
 # Iterate over links to extract text data
 for link in product_links:
     time.sleep(5)
     driver.get(link)
-    item_name_element = driver.find_elements_by_xpath("//h1[@class='product-name']")[0].text
+    item_name_element = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
     item_names.append(item_name_element)
     try:
         ingredient_element = driver.find_element_by_css_selector("div.ingredients").get_attribute("textContent")
@@ -72,3 +72,38 @@ for link in product_links:
     # CHANGE ratings-stars number for each rating score!!!!
     rating_element = driver.find_element_by_xpath("//span[@class='product-rating rating stars-1']").get_attribute("outerHTML")
     item_rating.append(rating_element)
+
+# Test Area ----
+
+driver.get('https://www.ulta.com/face-cleanser?productId=xlsImpprod13491007')
+# Brand name
+item_name_element = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
+
+# Product name
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
+
+# Product size
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
+
+# Product price
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span")[0].text
+item_name_element
+
+# Product details
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
+item_name_element
+
+# Product ingredients
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].text
+item_name_element
+
+# Product rating
+item_name_element = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]//span[@class]")
+item_name_element
+
+//span[@class,'pr-accessible-text']
+
+
+
+
+# End test ----
