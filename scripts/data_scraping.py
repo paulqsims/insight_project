@@ -92,7 +92,10 @@ for link in product_links:
     prod_detail = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
     prod_details.append(prod_detail)
     # Product ingredients
-    prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
+    try:
+        prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
+    except NoSuchElementException: 
+        prod_ingredientlist = math.nan
     prod_ingredientlists.append(prod_ingredientlist)
     # Product average rating
     # For this element and below, use webdriverwait to ensure elements have loaded
@@ -118,22 +121,45 @@ for link in product_links:
         prod_reviewtotal = math.nan
     prod_reviewtotals.append(prod_reviewtotal)
 
+# Create lists for 'use_category', 'use_subcategory', 'skintype', page
+use_categories = []
+for string in range(len(prod_names)):
+    use_categories.append('cleanser')
+
+use_subcategory = []
+for string in range(len(prod_names)):
+    use_subcategory.append('face wash')
+
+skintype = []
+for string in range(len(prod_names)):
+    skintype.append('oily')
+
+page = []
+for string in range(len(prod_names)):
+    page.append(1)
+
 # Combine product info lists into dataframe and export as CSV for pandas processing
-df = (pd.DataFrame(columns=['brand','product','size', 'price', 'details', 
-                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link'])) # creates master dataframe 
+df = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
+                            'brand','product','size', 'price', 'details', 
+                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates master dataframe 
 
 # list of each ingredient with ratings and categories paired
-data_tuples = (list(zip(brand_names[1:],prod_names[1:],prod_sizes[1:],
-                       prod_prices[1:], prod_details[1:],
-                       prod_ingredientlists[1:], prod_ratings[1:],
-                       prod_respondrecs[1:], prod_reviewtotals[1:],
-                       product_links[1:]))) 
+data_tuples = (list(zip(use_categories[1:],use_subcategory[1:],
+                        skintype[1:], brand_names[1:],prod_names[1:],
+                        prod_sizes[1:], prod_prices[1:], prod_details[1:],
+                        prod_ingredientlists[1:], prod_ratings[1:],
+                        prod_respondrecs[1:], prod_reviewtotals[1:],
+                        product_links[1:], page[1:]))) 
 
 # Create dataframe of tuple lists
 temp_df = (pd.DataFrame(data_tuples,
-                        columns=['brand','product','size', 'price', 'details',
-                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link'])) # creates dataframe of each tuple in list
+                        columns=['use_category', 'use_subcategory', 'skintype',
+                                 'brand','product','size', 'price', 'details', 
+                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates dataframe of each tuple in list
 df = df.append(temp_df)
+
+# Correct Banila Co
+df['size'][11] = '3.3 oz'
 
 driver.close()
 
@@ -179,9 +205,9 @@ for link in product_links:
     # wait 5 seconds before going to next link
     time.sleep(5)
     driver.get(link)
-    # wait 3 seconds before scraping elements of webpage
+    # wait 5 seconds before scraping elements of webpage
     # e.g. allow it to load
-    time.sleep(3)
+    time.sleep(5)
     # Brand name
     brand_name = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
     brand_names.append(brand_name)
@@ -189,51 +215,89 @@ for link in product_links:
     prod_name = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
     prod_names.append(prod_name)
     # Product size
-    prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[3]/div/div[1]/div[2]/span[2]")[0].text
-    prod_sizes.append(prod_name)
+    # If else variant for whether product is one size or has multiple sizes
+    if driver.find_elements_by_xpath("//*[contains(@class,'ProductDetail__productVariantOptions')]"):
+        prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[3]/div/div[1]/div[2]/span[@class='Text Text--body-2 Text--left Text--small']")[0].text
+    else:
+        prod_size = driver.find_elements_by_xpath("//html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
+    # Another option to print all sizes for product variant options
+    # In reserve if above if statement does not work
+    # driver.find_elements_by_xpath("//*[contains(@class,'ProductDetail__productVariantOptions')]")[0].text
+    prod_sizes.append(prod_size)    
     # Product price
-    prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span")[0].text
+    prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[contains(@class, 'ProductPricingPanel')]")[0].text
     prod_prices.append(prod_price)
     # Product details
     prod_detail = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
     prod_details.append(prod_detail)
     # Product ingredients
-    prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].text
+    try:
+        prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
+    except NoSuchElementException: 
+        prod_ingredientlist = math.nan
     prod_ingredientlists.append(prod_ingredientlist)
     # Product average rating
+    # For this element and below, use webdriverwait to ensure elements have loaded
+    # Include try and except for new products that don't have reviews
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
-        prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
+        prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
     except NoSuchElementException: 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
     except NoSuchElementException: 
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
     except NoSuchElementException: 
         prod_reviewtotal = math.nan
     prod_reviewtotals.append(prod_reviewtotal)
 
+# Create lists for 'use_category', 'use_subcategory', 'skintype', page
+use_categories = []
+for string in range(len(prod_names)):
+    use_categories.append('cleanser')
+
+use_subcategory = []
+for string in range(len(prod_names)):
+    use_subcategory.append('face wash')
+
+skintype = []
+for string in range(len(prod_names)):
+    skintype.append('oily')
+
+page = []
+for string in range(len(prod_names)):
+    page.append(2)
+
 # Combine product info lists into dataframe and export as CSV for pandas processing
-df = (pd.DataFrame(columns=['brand','product','size', 'price', 'details', 
-                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates master dataframe 
+df = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
+                            'brand','product','size', 'price', 'details', 
+                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates master dataframe 
 
 # list of each ingredient with ratings and categories paired
-data_tuples = (list(zip(brand_names[1:],prod_names[1:],prod_sizes[1:],
-                       prod_prices[1:], prod_details[1:],
-                       prod_ingredientlists[1:], prod_ratings[1:],
-                       prod_respondrecs[1:], prod_reviewtotals[1:]))) 
+data_tuples = (list(zip(use_categories[1:],use_subcategory[1:],
+                        skintype[1:], brand_names[1:],prod_names[1:],
+                        prod_sizes[1:], prod_prices[1:], prod_details[1:],
+                        prod_ingredientlists[1:], prod_ratings[1:],
+                        prod_respondrecs[1:], prod_reviewtotals[1:],
+                        product_links[1:], page[1:]))) 
 
 # Create dataframe of tuple lists
 temp_df = (pd.DataFrame(data_tuples,
-                        columns=['brand','product','size', 'price', 'details',
-                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates dataframe of each tuple in list
+                        columns=['use_category', 'use_subcategory', 'skintype',
+                                 'brand','product','size', 'price', 'details', 
+                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates dataframe of each tuple in list
 df = df.append(temp_df)
+
+
 
 driver.close()
 
