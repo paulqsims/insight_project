@@ -66,9 +66,9 @@ for link in product_links:
     # wait 5 seconds before going to next link
     time.sleep(5)
     driver.get(link)
-    # wait 3 seconds before scraping elements of webpage
+    # wait 5 seconds before scraping elements of webpage
     # e.g. allow it to load
-    time.sleep(3)
+    time.sleep(5)
     # Brand name
     brand_name = driver.find_elements_by_xpath("//*[@id='js-mobileBody']/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[1]/a[@class]")[0].text
     brand_names.append(brand_name)
@@ -76,31 +76,42 @@ for link in product_links:
     prod_name = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/h1/div[2]")[0].text
     prod_names.append(prod_name)
     # Product size
-    # First aid beauty
-    prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[3]/div/div[1]/div[2]/span[2]")[0].text
+    # If else variant for whether product is one size or has multiple sizes
+    if driver.find_elements_by_xpath("//*[contains(@class,'ProductDetail__productVariantOptions')]"):
+        prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[3]/div/div[1]/div[2]/span[@class='Text Text--body-2 Text--left Text--small']")[0].text
+    else:
+        prod_size = driver.find_elements_by_xpath("//html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1]")[0].text
+    # Another option to print all sizes for product variant options
+    # In reserve if above if statement does not work
+    # driver.find_elements_by_xpath("//*[contains(@class,'ProductDetail__productVariantOptions')]")[0].text
     prod_sizes.append(prod_size)    
     # Product price
-    prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/div/span[1]")[0].text
+    prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[contains(@class, 'ProductPricingPanel')]")[0].text
     prod_prices.append(prod_price)
     # Product details
     prod_detail = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[1]/div/div")[0].text
     prod_details.append(prod_detail)
     # Product ingredients
-    prod_ingredientlist =     driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
+    prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
     prod_ingredientlists.append(prod_ingredientlist)
     # Product average rating
+    # For this element and below, use webdriverwait to ensure elements have loaded
+    # Include try and except for new products that don't have reviews
+    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
-        prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))]").text
+        prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
     except NoSuchElementException: 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
+    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
     except NoSuchElementException: 
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
+    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
     except NoSuchElementException: 
