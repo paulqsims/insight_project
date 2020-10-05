@@ -78,7 +78,7 @@ for link in product_links:
     # Product size
     # First aid beauty
     prod_size = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[1]/p[1] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[3]/div/div[1]/div[2]/span[2]")[0].text
-    prod_sizes.append(prod_name)    
+    prod_sizes.append(prod_size)    
     # Product price
     prod_price = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/span | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[1]/div[2]/div/div[3]/div/span[1]")[0].text
     prod_prices.append(prod_price)
