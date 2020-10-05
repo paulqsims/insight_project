@@ -101,22 +101,24 @@ for link in product_links:
     # Product average rating
     # For this element and below, use webdriverwait to ensure elements have loaded
     # Include try and except for new products that don't have reviews
-    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
+        WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
         prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
     except (NoSuchElementException,TimeoutException): 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
-    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
+        WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
     except (NoSuchElementException,TimeoutException): 
+        pass
+    finally:
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
-    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
+        WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
     except (NoSuchElementException,TimeoutException): 
         prod_reviewtotal = math.nan
@@ -416,7 +418,7 @@ for string in range(len(prod_names)):
 
 page = []
 for string in range(len(prod_names)):
-    page.append(2)
+    page.append(3)
 
 # Combine product info lists into dataframe and export as CSV for pandas processing
 df_pg3 = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
@@ -436,7 +438,7 @@ temp_df = (pd.DataFrame(data_tuples,
                         columns=['use_category', 'use_subcategory', 'skintype',
                                  'brand','product','size', 'price', 'details', 
                                  'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates dataframe of each tuple in list
-df_pg3 = df_pg2.append(temp_df)
+df_pg3 = df_pg3.append(temp_df)
 
 driver.close()
 
