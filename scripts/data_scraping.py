@@ -120,18 +120,19 @@ for link in product_links:
 
 # Combine product info lists into dataframe and export as CSV for pandas processing
 df = (pd.DataFrame(columns=['brand','product','size', 'price', 'details', 
-                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates master dataframe 
+                            'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link'])) # creates master dataframe 
 
 # list of each ingredient with ratings and categories paired
 data_tuples = (list(zip(brand_names[1:],prod_names[1:],prod_sizes[1:],
                        prod_prices[1:], prod_details[1:],
                        prod_ingredientlists[1:], prod_ratings[1:],
-                       prod_respondrecs[1:], prod_reviewtotals[1:]))) 
+                       prod_respondrecs[1:], prod_reviewtotals[1:],
+                       product_links[1:]))) 
 
 # Create dataframe of tuple lists
 temp_df = (pd.DataFrame(data_tuples,
                         columns=['brand','product','size', 'price', 'details',
-                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews'])) # creates dataframe of each tuple in list
+                                 'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link'])) # creates dataframe of each tuple in list
 df = df.append(temp_df)
 
 driver.close()
