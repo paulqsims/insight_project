@@ -97,21 +97,21 @@ for link in product_links:
     # Product average rating
     # For this element and below, use webdriverwait to ensure elements have loaded
     # Include try and except for new products that don't have reviews
-    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
         prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
     except NoSuchElementException: 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
-    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
     except NoSuchElementException: 
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
-    WebDriverWait(driver,15).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
+    WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
     except NoSuchElementException: 
