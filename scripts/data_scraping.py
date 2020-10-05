@@ -9,6 +9,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 import time 
 import pandas as pd
 import rootpath
@@ -94,7 +95,7 @@ for link in product_links:
     # Product ingredients
     try:
         prod_ingredientlist = driver.find_elements_by_xpath("/html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[2]/div/div[3]/div[2]/div[2]/div/div/div")[0].get_attribute("innerText")
-    except (NoSuchElementException,IndexError): 
+    except (NoSuchElementException, IndexError): 
         prod_ingredientlist = math.nan
     prod_ingredientlists.append(prod_ingredientlist)
     # Product average rating
@@ -103,21 +104,21 @@ for link in product_links:
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
         prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
-    except NoSuchElementException: 
+    except (NoSuchElementException,TimeoutException): 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
-    except NoSuchElementException: 
+    except (NoSuchElementException,TimeoutException): 
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
-    except NoSuchElementException: 
+    except (NoSuchElementException,TimeoutException): 
         prod_reviewtotal = math.nan
     prod_reviewtotals.append(prod_reviewtotal)
 
@@ -242,21 +243,21 @@ for link in product_links:
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]")))
     try:
         prod_rating = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-rating-decimal', ' ' ))] | /html/body/div[1]/div[4]/div/div/div/div/div/div/section[5]/div/div[2]/div[3]/div/section/header/section/div/div[1]/div/div[1]/div/div[2]").text
-    except (NoSuchElementException): 
+    except (NoSuchElementException,TimeoutException): 
         prod_rating = math.nan
     prod_ratings.append(prod_rating)
     # Product proportion of respondants who would recommend product to friends
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]")))
     try:
         prod_respondrec = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-reco-value', ' ' ))]").text
-    except NoSuchElementException: 
+    except (NoSuchElementException,TimeoutException): 
         prod_respondrec = math.nan
     prod_respondrecs.append(prod_respondrec)
     # Product total number of reviews
     WebDriverWait(driver,45).until(EC.presence_of_element_located((By.XPATH, "//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]")))
     try:
         prod_reviewtotal = driver.find_element_by_xpath("//*[contains(concat( ' ', @class, ' ' ), concat( ' ', 'pr-snippet-review-count', ' ' ))]").text
-    except NoSuchElementException: 
+    except (NoSuchElementException,TimeoutException): 
         prod_reviewtotal = math.nan
     prod_reviewtotals.append(prod_reviewtotal)
 
