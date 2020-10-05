@@ -140,7 +140,7 @@ for string in range(len(prod_names)):
     page.append(1)
 
 # Combine product info lists into dataframe and export as CSV for pandas processing
-df = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
+df_pg1 = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
                             'brand','product','size', 'price', 'details', 
                             'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates master dataframe 
 
@@ -157,15 +157,15 @@ temp_df = (pd.DataFrame(data_tuples,
                         columns=['use_category', 'use_subcategory', 'skintype',
                                  'brand','product','size', 'price', 'details', 
                                  'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates dataframe of each tuple in list
-df = df.append(temp_df)
+df_pg1 = df_pg1.append(temp_df)
 
 # Correct Banila Co
-df['size'][11] = '3.3 oz'
+df_pg1['size'][11] = '3.3 oz'
 
 driver.close()
 
 # Export to csv
-df.to_csv(f"{path}/data/cleansers_face-wash_oilyskin_pg1.csv")
+df_pg1.to_csv(f"{path}/data/cleansers_face-wash_oilyskin_pg1.csv")
 
 # -----------
 # Page 2 of 3
@@ -281,7 +281,7 @@ for string in range(len(prod_names)):
     page.append(2)
 
 # Combine product info lists into dataframe and export as CSV for pandas processing
-df = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
+df_pg2 = (pd.DataFrame(columns=['use_category', 'use_subcategory', 'skintype',
                             'brand','product','size', 'price', 'details', 
                             'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates master dataframe 
 
@@ -298,14 +298,12 @@ temp_df = (pd.DataFrame(data_tuples,
                         columns=['use_category', 'use_subcategory', 'skintype',
                                  'brand','product','size', 'price', 'details', 
                                  'ingredients', 'ratings', 'perc_respondrec', 'total_reviews', 'link', 'page'])) # creates dataframe of each tuple in list
-df = df.append(temp_df)
-
-
+df_pg2 = df_pg2.append(temp_df)
 
 driver.close()
 
 # Export to csv
-df.to_csv(f"{path}/data/cleansers_face-wash_oilyskin_pg2.csv")
+df_pg2.to_csv(f"{path}/data/cleansers_face-wash_oilyskin_pg2.csv")
 
 # -----------
 # Page 3 of 3
