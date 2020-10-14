@@ -105,7 +105,6 @@ pyOpenSSL==19.1.0
 pyparsing==2.4.7
 pyrsistent==0.16.0
 PySocks==1.7.1
-pytesseract @ file:///home/conda/feedstock_root/build_artifacts/pytesseract_1601036528315/work
 python-dateutil==2.8.1
 pytz==2020.1
 PyYAML==5.3.1
@@ -116,10 +115,9 @@ QtPy==1.9.0
 requests==2.24.0
 rootpath==0.1.1
 s3transfer==0.3.3
-scikit-learn @ file:///opt/concourse/worker/volumes/live/111833a2-339b-4578-413b-7337bb8fe64a/volume/scikit-learn_1598376920601/work
+scikit-learn==0.23.2
 scipy @ file:///opt/concourse/worker/volumes/live/7f5e51f8-abf3-4409-4c56-a4fb14cc9869/volume/scipy_1593104185999/work
 seaborn==0.10.1
-selenium @ file:///Users/runner/miniforge3/conda-bld/selenium_1601468658309/work
 Send2Trash==1.5.0
 six==1.15.0
 soupsieve==2.0.1
