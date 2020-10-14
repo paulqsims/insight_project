@@ -64,7 +64,7 @@ pytz==2020.1
 pyzmq==19.0.2
 requests==2.24.0
 s3transfer==0.3.3
-scikit-learn @ file:///Users/runner/miniforge3/conda-bld/scikit-learn_1596546094462/work
+scikit-learn==0.23.2
 scipy @ file:///Users/runner/miniforge3/conda-bld/scipy_1602441104694/work
 Send2Trash==1.5.0
 six==1.15.0
