@@ -4,7 +4,7 @@
 
 from pandas._libs.tslibs import conversion
 import streamlit as st
-import rootpath
+import rootpath as rp
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -16,7 +16,7 @@ import heapq as hq
 #     return Path(markdown_file).read_text()
 
 # Set root path for project
-path = rootpath.detect()
+path = rp.rootpath.detect()
 
 # Read in data
 # Use list comprehension to read in all files
