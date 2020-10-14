@@ -96,7 +96,7 @@ if input_choice == 'Search our database':
                     #best_sim_score = np.min(max(top_sim['similarity'],min(top_sim['price_oz'])))
                     output_rec = top_sim.iloc[0].to_frame().transpose()[['product_type', 'brand','product','similarity', 'price','price_oz','size','link']]
                     output_rec['similarity']=output_rec['similarity'].astype(float)
-                    output_rec['similarity']=output_rec['similarity'].round(2)
+                    output_rec['similarity']=output_rec['similarity']
                     # keep df of product selected
                     tempdf = df.loc[df['product']==f'{product}']
                     #total price diff
