@@ -1,28 +1,40 @@
 name: insight_project
 channels:
+  - anaconda
+  - bioconda
+  - conda-forge
   - defaults
 dependencies:
+  - adjusttext=0.7.3.1=py_1
   - appnope=0.1.0=py38_1001
   - argon2-cffi=20.1.0=py38haf1e3a3_1
   - attrs=20.1.0=py_0
   - backcall=0.2.0=py_0
+  - bioinfokit=1.0.0=pyh3252c3a_0
   - blas=1.0=mkl
   - bleach=3.1.5=py_0
-  - ca-certificates=2020.7.22=0
-  - certifi=2020.6.20=py38_0
+  - brotlipy=0.7.0=py38h4d0b108_1000
+  - ca-certificates=2020.6.20=hecda079_0
+  - certifi=2020.6.20=py38h5347e94_2
   - cffi=1.14.2=py38hed5b41f_0
   - click=7.1.2=py_0
+  - cryptography=3.1.1=py38h52adbb4_0
   - cycler=0.10.0=py38_0
   - dbus=1.13.16=h18a8e69_0
   - decorator=4.4.2=py_0
   - defusedxml=0.6.0=py_0
+  - dill=0.3.2=pyh9f0ad1d_0
   - entrypoints=0.3=py38_0
   - expat=2.2.9=hb1e8313_2
+  - fbpca=1.0=py_0
   - flask=1.1.2=py_0
   - freetype=2.10.2=ha233b18_0
   - gettext=0.19.8.1=hb0f4f8b_2
+  - giflib=5.1.7=h01d97ff_1
   - glib=2.65.0=hc5f4afa_0
+  - glob2=0.7=py_0
   - icu=58.2=h0a44026_3
+  - idna=2.10=pyh9f0ad1d_0
   - importlib-metadata=1.7.0=py38_0
   - importlib_metadata=1.7.0=0
   - intel-openmp=2019.4=233
@@ -39,10 +51,18 @@ dependencies:
   - jupyter=1.0.0=py38_7
   - jupyter_client=6.1.6=py_0
   - jupyter_console=6.2.0=py_0
+  - jupyter_contrib_core=0.3.3=py_2
+  - jupyter_contrib_nbextensions=0.5.1=py38_0
   - jupyter_core=4.6.3=py38_0
+  - jupyter_highlight_selected_word=0.2.0=py38_1000
+  - jupyter_latex_envs=1.4.4=py38_1000
+  - jupyter_nbextensions_configurator=0.4.1=py38h32f6830_1
+  - jupyterthemes=0.20.0=py_1
   - kiwisolver=1.2.0=py38h04f5b5a_0
   - krb5=1.17.1=hddcf347_0
   - lcms2=2.11=h92f6f08_0
+  - leptonica=1.76.0=h1ccaaf6_4
+  - lesscpy=0.13.0=py_1
   - libcxx=10.0.0=1
   - libedit=3.1.20191231=h1de35cc_1
   - libffi=3.3=hb1e8313_2
@@ -52,11 +72,16 @@ dependencies:
   - libpq=12.2=h051b688_0
   - libsodium=1.0.18=h1de35cc_0
   - libtiff=4.1.0=hcb84e12_1
+  - libwebp=0.5.2=7
+  - libxml2=2.9.10=h3b9e6c8_1
+  - libxslt=1.1.34=h83b36ba_0
   - llvm-openmp=10.0.0=h28b9765_0
+  - lxml=4.5.2=py38hc829089_0
   - lz4-c=1.9.2=hb1e8313_1
   - markupsafe=1.1.1=py38h1de35cc_1
   - matplotlib=3.3.1=0
   - matplotlib-base=3.3.1=py38h181983e_0
+  - matplotlib-venn=0.11.5=py_2
   - mistune=0.8.4=py38h1de35cc_1001
   - mkl=2019.4=233
   - mkl-service=2.3.0=py38hfbe908c_0
@@ -69,7 +94,8 @@ dependencies:
   - numpy=1.19.1=py38h3b9f5b6_0
   - numpy-base=1.19.1=py38hcfb5961_0
   - olefile=0.46=py_0
-  - openssl=1.1.1g=h1de35cc_0
+  - openjpeg=2.3.1=h254dc36_3
+  - openssl=1.1.1h=haf1e3a3_0
   - packaging=20.4=py_0
   - pandas=1.1.1=py38hb1e8313_0
   - pandoc=2.10.1=0
@@ -80,6 +106,8 @@ dependencies:
   - pickleshare=0.7.5=py38_1001
   - pillow=7.2.0=py38ha54b6ba_0
   - pip=20.2.2=py38_0
+  - ply=3.11=py_1
+  - prince-factor-analysis=0.7.0=py_0
   - prometheus_client=0.8.0=py_0
   - prompt-toolkit=3.0.7=py_0
   - prompt_toolkit=3.0.7=0
@@ -87,13 +115,19 @@ dependencies:
   - ptyprocess=0.6.0=py38_0
   - pycparser=2.20=py_2
   - pygments=2.6.1=py_0
+  - pyopenssl=19.1.0=py_1
   - pyparsing=2.4.7=py_0
   - pyqt=5.9.2=py38h655552a_2
   - pyrsistent=0.16.0=py38h1de35cc_0
+  - pysocks=1.7.1=py38h32f6830_1
+  - pytesseract=0.3.6=pyh9f0ad1d_1
   - python=3.8.5=h26836e1_1
   - python-dateutil=2.8.1=py_0
+  - python_abi=3.8=1_cp38
   - pytz=2020.1=py_0
+  - pyyaml=5.3.1=py38h4d0b108_0
   - pyzmq=19.0.1=py38hb1e8313_1
+  - qgrid=1.3.1=py38h32f6830_0
   - qt=5.9.7=h468cd18_1
   - qtconsole=4.7.6=py_0
   - qtpy=1.9.0=py_0
@@ -101,28 +135,77 @@ dependencies:
   - scikit-learn=0.23.2=py38h959d312_0
   - scipy=1.5.0=py38hbab996c_0
   - seaborn=0.10.1=py_0
+  - selenium=3.141.0=py38h4d0b108_1001
   - send2trash=1.5.0=py38_0
   - setuptools=49.6.0=py38_0
   - sip=4.19.8=py38h0a44026_0
   - six=1.15.0=py_0
   - sqlite=3.33.0=hffcf06c_0
   - terminado=0.8.3=py38_0
+  - tesseract=3.05.02=h1ccaaf6_0
   - testpath=0.4.4=py_0
   - threadpoolctl=2.1.0=pyh5ca1d4c_0
   - tk=8.6.10=hb0a8c7a_0
   - tornado=6.0.4=py38h1de35cc_1
   - traitlets=4.3.3=py38_0
+  - urllib3=1.25.10=py_0
   - wcwidth=0.2.5=py_0
   - webencodings=0.5.1=py38_1
   - werkzeug=1.0.1=py_0
   - wheel=0.35.1=py_0
   - widgetsnbextension=3.5.1=py38_0
   - xz=5.2.5=h1de35cc_0
+  - yaml=0.2.5=haf1e3a3_0
   - zeromq=4.3.2=hb1e8313_3
   - zipp=3.1.0=py_0
   - zlib=1.2.11=h1de35cc_3
   - zstd=1.4.5=h41d2c2f_0
   - pip:
+    - altair==4.1.0
+    - appdirs==1.4.4
+    - astor==0.8.1
+    - base58==2.0.1
+    - beautifulsoup4==4.9.3
+    - blessings==1.7
+    - blinker==1.4
+    - boto3==1.15.10
+    - botocore==1.18.10
+    - cachetools==4.1.1
+    - chardet==3.0.4
+    - codecov==2.1.9
+    - coloredlogs==14.0
+    - colour-runner==0.1.1
+    - coverage==5.3
+    - deepdiff==5.0.2
+    - dfply==0.3.3
+    - distlib==0.3.1
+    - enum-compat==0.0.3
+    - filelock==3.0.12
+    - httmock==1.3.0
+    - http-request-randomizer==1.2.3
+    - humanfriendly==8.2
+    - jmespath==0.10.0
+    - ordered-set==4.0.2
+    - pathtools==0.1.2
+    - pluggy==0.13.1
+    - protobuf==3.13.0
+    - psutil==5.7.2
+    - py==1.9.0
+    - pyarrow==1.0.1
+    - pydeck==0.5.0b1
+    - requests==2.24.0
+    - rootpath==0.1.1
+    - s3transfer==0.3.3
+    - soupsieve==2.0.1
     - sqlalchemy==1.3.19
     - sqlalchemy-utils==0.36.8
-prefix: envs
+    - streamlit==0.67.1
+    - termcolor==1.1.0
+    - toml==0.10.1
+    - toolz==0.11.1
+    - tox==3.20.0
+    - tzlocal==2.1
+    - validators==0.18.1
+    - virtualenv==20.0.31
+    - watchdog==0.10.3
+prefix: /opt/anaconda3/envs/insight_project
