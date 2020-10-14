@@ -7,29 +7,7 @@ import streamlit as st
 import rootpath
 import pandas as pd
 import numpy as np
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import make_scorer
-from sklearn.impute import SimpleImputer
-from sklearn import metrics
-from sklearn import model_selection
-from sklearn import datasets, linear_model
-from sklearn.model_selection import cross_val_score
-from sklearn.metrics import mean_absolute_error
-from sklearn.metrics import make_scorer
-from sklearn.metrics import r2_score
-import numpy as np
 from pathlib import Path
-import streamlit as st
-
-# import modules
-import pandas as pd
-import numpy as np
-import rootpath
-from sklearn.cluster import KMeans
-from sklearn.metrics import silhouette_score
-import qgrid
-import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity
 import heapq as hq
 
