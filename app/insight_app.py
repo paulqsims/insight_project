@@ -62,9 +62,7 @@ st.title('DupeMySkincare')
 # User inputs the number of ingredients in a product
 #number_ingredients = st.number_input("Number of Ingredients", format="%2d")
 
-features = df.copy().drop(['product_type','active', 'brand', 'price','size','ratings', 
-                           'total_reviews','link','price_oz'],
-                          axis=1).set_index('product')
+features = df.copy().drop(['product_type','active', 'brand', 'price','size','ratings', 'total_reviews','link','price_oz'],axis=1).set_index('product')
 
 input_choice = st.selectbox("Choose your method of input",
                           ('Paste ingredients', 'Search our database'),key='a')
