@@ -4,7 +4,7 @@
 
 from pandas._libs.tslibs import conversion
 import streamlit as st
-import rootpath as rp
+#import rootpath as rp
 import pandas as pd
 import numpy as np
 from pathlib import Path
@@ -16,11 +16,13 @@ import heapq as hq
 #     return Path(markdown_file).read_text()
 
 # Set root path for project
-path = rp.rootpath.detect()
+#path = rp.rootpath.detect()
 
 # Read in data
 # Use list comprehension to read in all files
-df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=True)
+# df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=True)
+
+df = pd.read_csv("data_clean.csv", index_col=0).reset_index(drop=True)
 
 
 #df_ex = (pd.read_csv(f"{path}/data/app_ex.csv",
