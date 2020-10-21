@@ -46,7 +46,7 @@ df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=Tr
 
 # Run app
 st.title('DupeMySkincare')
-'A web app to recommond skincare productss based on ingredients'
+'A web app to recommond skincare products based on product similarity'
 
 # st.number_input(label = 'Number of Ingredients')
 
