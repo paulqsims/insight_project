@@ -10,6 +10,7 @@ import numpy as np
 from pathlib import Path
 from sklearn.metrics.pairwise import cosine_similarity
 import heapq as hq
+import base64
 
 # Custom functions
 # def read_markdown_file(markdown_file):
@@ -44,9 +45,22 @@ df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=Tr
 # model = lm.fit(X_train, y_train)
 # predictions = lm.predict(X_test)
 
+# Add background image
+def img_to_bytes(img_path):
+    img_bytes = Path(img_path).read_bytes()
+    encoded = base64.b64encode(img_bytes).decode()
+    return encoded
+
+header_html = "<img src='data:image/png;base64,{}' class='img-fluid'>".format(
+    img_to_bytes(f"{path}/app/logo.jpeg")
+)
+st.markdown(
+    header_html, unsafe_allow_html=True,
+)
+
 # Run app
-st.title('DupeMySkincare')
-'A web app to recommond skincare products based on product similarity'
+# st.title('DupeMySkincare')
+#'A web app to recommond alternative skincare products'
 
 # st.number_input(label = 'Number of Ingredients')
 
