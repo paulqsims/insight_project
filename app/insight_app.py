@@ -103,40 +103,5 @@ if st.button('Find my dupe!'):
 #      # User uploads ingredients
 #      ingredients = st.text_input("Ingredient list")
 
-# ingredient_input = "Water, Dimethicone, Aluminum Starch Octenylsuccinate, Dimethicone Crosspolymer, Ammonium Acryloyldimethyltaurate/VP Copolymer, Trisiloxane, Nylon-12, C12-15 Alkyl Benzoate, Ascorbyl Glucoside, Glycerin, Caprylyl Glycol, Polyacrylamide, Xanthan Gum, Fragrance, C13-14 Isoparaffin, Sodium Hyaluronate, Sodium Lactate, Hydrolyzed Myrtus Communis Leaf Extract, Sodium Hydroxide, BHT, Disodium EDTA, Polysorbate 20, Laureth-7, Retinol, Sodium PCA, Sorbitol, Proline, Hinokitiol, Mica, Titanium Dioxide"
 
-# ingredient_input = ingredient_input.split(',')
-# ingredient_input = [ingredient.strip(' ').lower() for ingredient in ingredient_input]
-
-
-
-# Use ingredient input to predict rating from model
-# if number_ingredients:
-#      # define input
-#      # num_ingredients = st.number_input("Number of Ingredients", format="%2d", key="rating_output")
-#      new_input = [[number_ingredients, 10]] #num_ingredients
-#      # get prediction for new input
-#      new_output = model.predict(new_input).round(decimals = 0)
-#      new_output = str(new_output).strip('[.]') # convert to text
-#      st.success(f'The predicted rating is {new_output} stars') 
-#      rating_text = read_markdown_file(f"{path}/app/rating_text.md")
-#      st.markdown(rating_text, unsafe_allow_html=True)
-
-# df_ex2 = df_ex.drop(['predicted_cluster_label'], axis=1)
-# df_ex2 = df_ex2.rename(columns={'predicted_cluster_prob':'Similarity'})
-# df_ex2['Similarity'] = round(df_ex2['Similarity'], 2)*100
-
-# Convert ingredients to text
-#if ingredient_input:
-     # define input
-    #ingredients = st.text_input("Number of Ingredients")
-    #print(ingredients)
-    # new_input = [[pd.Series(ingredients) for ingredient in str(product).split(',')] for product in df.Ingredients] #num_ingredients
-    #  # get prediction for new input
-    #  new_output = model.predict(new_input).round(decimals = 0)
-    #  new_output = str(new_output).strip('[.]') # convert to text
-#     st.success(f'The top most similar products are:') 
-#     st.table(df_ex2.assign(hack='').set_index('hack'))
-    #  rating_text = read_markdown_file(f"{path}/app/rating_text.md")
-    #  st.markdown(rating_text, unsafe_allow_html=True)
 
