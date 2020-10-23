@@ -25,26 +25,6 @@ df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=Tr
 
 #df = pd.read_csv("data_clean.csv", index_col=0).reset_index(drop=True)
 
-
-#df_ex = (pd.read_csv(f"{path}/data/app_ex.csv",
-#                  index_col=0))
-
-# model_linear = LinearRegression()
-
-# # Impute missing values
-# df.fillna(df.mean(), inplace=True)
-
-# # divide df into features matrix and target vector
-# features = df[['good_ingred_cat_rat_n', 'Ingredient_n']]     #df.iloc[:, :-1]  #all except quality
-# target = df['product_rating']
-
-# X_train, X_test, y_train, y_test = model_selection.train_test_split(features, target, train_size=0.8,test_size=0.2, random_state=1)
-
-# # fit a model
-# lm = linear_model.LinearRegression()
-# model = lm.fit(X_train, y_train)
-# predictions = lm.predict(X_test)
-
 # Add background image
 def img_to_bytes(img_path):
     img_bytes = Path(img_path).read_bytes()
