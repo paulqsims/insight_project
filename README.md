@@ -2,4 +2,4 @@
 
 ## DupeMySkincare
 
-![Test](/app/logo.png)
+![Test](/app/logo.jpeg)
