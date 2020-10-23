@@ -1,5 +1,7 @@
 # Readme
 
-- Insight data science project on skincare product ratings predictor and recommender
+## DupeMySkincare
+###### A web app to recommend alternative skincare products
+
 
 - Currently in progress
