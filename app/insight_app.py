@@ -4,13 +4,13 @@
 
 from pandas._libs.tslibs import conversion
 import streamlit as st
-import rootpath 
+import rootpath # directory setting
 import pandas as pd
 import numpy as np
 from pathlib import Path
 from sklearn.metrics.pairwise import cosine_similarity
-import heapq as hq
-import base64
+import heapq as hq # for sorting df by largest values
+import base64 # for header image
 
 # Custom functions
 # def read_markdown_file(markdown_file):
