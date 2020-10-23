@@ -38,24 +38,6 @@ st.markdown(
     header_html, unsafe_allow_html=True,
 )
 
-# Run app
-# st.title('DupeMySkincare')
-#'A web app to recommond alternative skincare products'
-
-# st.number_input(label = 'Number of Ingredients')
-
-# st.button('Predict Rating')
-
-# num_ingredients = st.number_input("Number of Ingredients", format="%2d", key="ingredient_input")
-# # define input
-# new_input = [[num_ingredients, 10]] #num_ingredients
-# # get prediction for new input
-# new_output = model.predict(new_input).round(decimals = 0)
-# st.success('The predicted rating is {}'.format(new_output)) 
-
-# User inputs the number of ingredients in a product
-#number_ingredients = st.number_input("Number of Ingredients", format="%2d")
-
 features = df.copy().drop(['product_type','active', 'brand', 'price','size','ratings', 'total_reviews','link','price_oz'],axis=1).set_index('product')
 
 # Add a blank row for default selection
