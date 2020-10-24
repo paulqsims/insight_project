@@ -46,13 +46,15 @@ features = df.copy().drop(['product_type','active', 'brand', 'price','size','rat
 # input_choice = st.selectbox("Select a brand",
 #                           ('Paste ingredients', 'Search our database'),key='a')
 
+Please enter details about the product you wish to 'dupe':
+
 prod_type = st.selectbox("1. Select product type", (df['product_type'].unique()),key='a')
 if prod_type != 0:
      df2 = df[df.product_type==(f'{prod_type}')]
      brand = st.selectbox("2. Select the product's brand", (df2['brand'].unique()),key='a')
      if brand:
           df3 = df2[df2.brand==(f'{brand}')]
-          product = st.selectbox("3. Select the product", (df3['product'].unique()),key='b')
+          product = st.selectbox("3. Select the product you want to 'dupe'", (df3['product'].unique()),key='b')
 
 if st.button('Find my dupe!'):
      # st.subheader('Choose the brand and product you want to dupe')
