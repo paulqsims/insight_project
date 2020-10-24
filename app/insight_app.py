@@ -45,7 +45,7 @@ features = df.copy().drop(['product_type','active', 'brand', 'price','size','rat
 
 # input_choice = st.selectbox("Select a brand",
 #                           ('Paste ingredients', 'Search our database'),key='a')
-
+st.markdown("")
 st.markdown("Please enter details about the product you wish to 'dupe':")
 
 prod_type = st.selectbox("1. Select product type", (df['product_type'].unique()),key='a')
