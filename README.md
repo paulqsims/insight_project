@@ -6,7 +6,7 @@
 
 Skincare products can be quite expensive and it is both *time consuming* and *difficult* to find cheaper alternatives ('dupes'), which often requires understanding formulation details and domain knowlege of ingredient importance to find functionally similar products.
 
-[**DupeMySkincare**](https://share.streamlit.io/paulqsims/insight_project/master/app%2Finsight_app.py) is a web app that simplifies this process for consumers by providing alternative product recommendations using content based filtering. Users can sort results by similarity and price to best balance their interests and can purchase the alternative product by clicking the link provided.
+[**DupeMySkincare**](https://share.streamlit.io/paulqsims/insight_project/master/app%2Finsight_app.py) is a python web app that simplifies this process for consumers by providing alternative product recommendations using content based filtering. Users can sort results by similarity and price to best balance their interests and can purchase the alternative product by clicking the link provided.
 
 ## How to use it
 
