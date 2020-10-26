@@ -1,6 +1,6 @@
 # Readme
 
-![Test](/app/logo.jpeg)
+![Test](/app/logo2.jpeg)
 
 ## Description
 
