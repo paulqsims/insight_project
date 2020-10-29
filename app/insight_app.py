@@ -56,7 +56,7 @@ if prod_type != 0:
           df3 = df2[df2.brand==(f'{brand}')]
           product = st.selectbox("3. Select the product you want to 'dupe'", (df3['product'].unique()),key='b')
 
-prod_rec = st.selectbox("4. Prioritize recommendation by:", ('Cheaper total price','Cheaper price per oz', 'Most similar'),key='b')
+prod_rec = st.selectbox("4. Prioritize recommendation by:", ('Cheaper total price','Cheaper price per oz', 'Most similar'),key='c')
 
 # def make_clickable(link):
 #     # target _blank to open new window
