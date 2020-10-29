@@ -56,6 +56,8 @@ if prod_type != 0:
           df3 = df2[df2.brand==(f'{brand}')]
           product = st.selectbox("3. Select the product you want to 'dupe'", (df3['product'].unique()),key='b')
 
+prod_rec = st.selectbox("4. Prioritize recommendation by:", ('Cheaper price','Most similar'),key='b')
+
 # def make_clickable(link):
 #     # target _blank to open new window
 #     # extract clickable text to display for your link
@@ -91,44 +93,83 @@ if st.button('Find my dupe!'):
      # Maybe don't round so you don't have to deal with ties?
      #indexNames = res_sim[res_sim['product']=='Essential-C Cleanser'].index
      #res_sim.drop(indexNames, inplace=True)
-     # Sort from top similarity metrics and ignoring self
-     top_sim = res_sim.nlargest(5, 'similarity')[1:6]
-     #best_sim_score = np.min(max(top_sim['similarity'],min(top_sim['price_oz'])))
-     output_rec = top_sim.iloc[0].to_frame().transpose()[['product_type', 'brand','product','similarity', 'price','price_oz','size','link']]
-     output_rec['similarity']=output_rec['similarity'].astype(float)
-     # Convert to percent
-     output_rec['similarity']=output_rec['similarity'] * 100
-     # Rename column to percent
-     output_rec.rename(columns={'similarity':'similarity (%)',
-                                'size':'size (oz)',
-                               'price':'price ($USD)'}, inplace = True)
-     # keep df of product selected
-     tempdf = df.loc[df['product']==f'{product}']
-     #total price diff
-     price_diff = tempdf['price']-output_rec.iloc[0]['price ($USD)']
-     price_diff = price_diff.astype('float')
-     price_diff = price_diff.values[0]
-     # price per oz
-     price_diff_oz = tempdf['price_oz']-output_rec.iloc[0]['price_oz']
-     price_diff_oz = price_diff_oz.astype('float')
-     price_diff_oz = price_diff_oz.values[0]
-     # Round similarity, price, and price per oz, and size
-     # output_rec.round({'similarity (%)':2,'price ($USD)':2,'price_oz':2,
-     # 'size (oz)':2})
-     output_rec.round(2)
-     # Header
-     st.subheader('Try this product instead:')
-     # Make clickable links
-     output_rec= output_rec.to_html(render_links=True)
-     # Print product recommendation table with clickable link
-     st.write(output_rec, unsafe_allow_html=True)
-     # st.table(output_rec.style.format({'similarity (%)':'{:.2f}',
-     # 'price ($USD)':'{:.2f}','price_oz':'{:.2f}','size (oz)':'{:.2f}'})) 
-     st.markdown(f'Savings (total price difference): ${price_diff:.2f}')
-     st.markdown(f'Savings (price per oz): ${price_diff_oz:.2f}')
-# else:
-#      # User uploads ingredients
-#      ingredients = st.text_input("Ingredient list")
-
+     if prod_rec == 'Most similar':
+        # Sort from top similarity metrics and ignoring self
+        top_sim = res_sim.nlargest(5, 'similarity')[1:6]
+        #best_sim_score = np.min(max(top_sim['similarity'],min(top_sim['price_oz'])))
+        output_rec = top_sim.iloc[0] \
+                        .to_frame()   \
+                        .transpose()[['product_type', 'brand','product','similarity', 'price','price_oz','size','link']]
+        output_rec['similarity']=output_rec['similarity'].astype(float)
+        # Convert to percent
+        output_rec['similarity']=output_rec['similarity'] * 100
+        # Rename column to percent
+        output_rec.rename(columns={'similarity':'similarity (%)',
+                                    'size':'size (oz)',
+                                'price':'price ($USD)'}, inplace = True)
+        # keep df of product selected
+        tempdf = df.loc[df['product']==f'{product}']
+        #total price diff
+        price_diff = tempdf['price']-output_rec.iloc[0]['price ($USD)']
+        price_diff = price_diff.astype('float')
+        price_diff = price_diff.values[0]
+        # price per oz
+        price_diff_oz = tempdf['price_oz']-output_rec.iloc[0]['price_oz']
+        price_diff_oz = price_diff_oz.astype('float')
+        price_diff_oz = price_diff_oz.values[0]
+        # Round similarity, price, and price per oz, and size
+        # output_rec.round({'similarity (%)':2,'price ($USD)':2,'price_oz':2,
+        # 'size (oz)':2})
+        output_rec.round(2)
+        # Header
+        st.subheader('Try this product instead:')
+        # Make clickable links
+        output_rec= output_rec.to_html(render_links=True)
+        # Print product recommendation table with clickable link
+        st.write(output_rec, unsafe_allow_html=True)
+        # st.table(output_rec.style.format({'similarity (%)':'{:.2f}',
+        # 'price ($USD)':'{:.2f}','price_oz':'{:.2f}','size (oz)':'{:.2f}'})) 
+        st.markdown('')
+        st.markdown(f'Savings (total price difference): ${price_diff:.2f}')
+        st.markdown(f'Savings (price per oz): ${price_diff_oz:.2f}')
+     elif prod_rec == 'Cheaper price':
+        # Sort from top similarity metrics and ignoring self
+        top_sim = res_sim.nlargest(5, 'similarity')[1:6]
+        #best_sim_score = np.min(max(top_sim['similarity'],min(top_sim['price_oz'])))
+        output_rec = top_sim.nsmallest(1, 'price')
+        output_rec['similarity']=output_rec['similarity'].astype(float)
+        # Convert to percent
+        output_rec['similarity']=output_rec['similarity'] * 100
+        # Rename column to percent
+        output_rec.rename(columns={'similarity':'similarity (%)',
+                                    'size':'size (oz)',
+                                'price':'price ($USD)'}, inplace = True)
+        # keep df of product selected
+        tempdf = df.loc[df['product']==f'{product}']
+        #total price diff
+        price_diff = tempdf['price']-output_rec.iloc[0]['price ($USD)']
+        price_diff = price_diff.astype('float')
+        price_diff = price_diff.values[0]
+        # price per oz
+        price_diff_oz = tempdf['price_oz']-output_rec.iloc[0]['price_oz']
+        price_diff_oz = price_diff_oz.astype('float')
+        price_diff_oz = price_diff_oz.values[0]
+        # Round similarity, price, and price per oz, and size
+        # output_rec.round({'similarity (%)':2,'price ($USD)':2,'price_oz':2,
+        # 'size (oz)':2})
+        output_rec.round(2)
+        output_rec = output_rec[['product_type','brand','product','similarity (%)','price ($USD)', 'price_oz','size (oz)','link']]
+        # Header
+        st.subheader('Try this product instead:')
+        # Make clickable links
+        output_rec= output_rec.to_html(render_links=True)
+        # Print product recommendation table with clickable link
+        st.write(output_rec, unsafe_allow_html=True)
+        # st.table(output_rec.style.format({'similarity (%)':'{:.2f}',
+        # 'price ($USD)':'{:.2f}','price_oz':'{:.2f}','size (oz)':'{:.2f}'})) 
+        st.markdown('')
+        st.markdown(f'Savings (total price difference): ${price_diff:.2f}')
+        st.markdown(f'Savings (price per oz): ${price_diff_oz:.2f}')
+        
 
 
