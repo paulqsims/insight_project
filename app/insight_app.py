@@ -97,9 +97,7 @@ if st.button('Find my dupe!'):
         # Sort from top similarity metrics and ignoring self
         top_sim = res_sim.nlargest(5, 'similarity')[1:6]
         #best_sim_score = np.min(max(top_sim['similarity'],min(top_sim['price_oz'])))
-        output_rec = top_sim.iloc[0] \
-                        .to_frame()   \
-                        .transpose()[['product_type', 'brand','product','similarity', 'price','price_oz','size','link']]
+        output_rec = top_sim.iloc[0].to_frame().transpose()[['product_type', 'brand','product','similarity', 'price','price_oz','size','link']]
         output_rec['similarity']=output_rec['similarity'].astype(float)
         # Convert to percent
         output_rec['similarity']=output_rec['similarity'] * 100
