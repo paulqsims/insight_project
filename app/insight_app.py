@@ -23,6 +23,8 @@ path = rootpath.detect()
 # Use list comprehension to read in all files
 df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=True)
 
+df = df[df.product_type != 'toothpaste']
+
 #df = pd.read_csv("data_clean.csv", index_col=0).reset_index(drop=True)
 
 # Add background image
