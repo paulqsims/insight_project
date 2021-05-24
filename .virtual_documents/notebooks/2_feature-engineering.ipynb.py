@@ -530,13 +530,17 @@ def add_prod_info(tsvd_df, original_df, col_names, prod_names_col):
 
 # Add product info to tsvd df
 
-df_original_tsvd = add_prod_info(df_original_tsvd,
-                                 df_original_ingred_final,
-                                 cols_to_drop,
-                                 'product')
+df_original_tsvd_export = add_prod_info(df_original_tsvd,
+                                         df_original_ingred_final,
+                                         cols_to_drop,
+                                         'product')
 
 
+# Export tsvd df for analysis
 
+directory_name = '/data/clean/'
+file_name = 'data_tsvd_full.csv'
+df_original_tsvd_export.to_csv(rpath+directory_name+file_name)
 
 
 
