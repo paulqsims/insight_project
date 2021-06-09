@@ -16,4 +16,6 @@ In the following order, select the product type, brand, and product that you wan
 
 ## How it works
 
-DupeMySkincare uses skincare product details such as the product type (face wash, toner, etc.) and ingredient features to find similar products. Due to the large number of product features and sparse nature of the data, Truncated Singular Value Decomposition (TSVD) is used to reduce the dimensionality before calculating cosine similarities of feature vectors between all products and the input product of interest. The top most similar product is then recommended to the user.
+DupeMySkincare uses skincare product details such as the product type (face wash, toner, etc.) and ingredients to find similar products, resulting in a recommendation of the most similar product. 
+
+In technical terms, [Latent Semantic Analysis](https://en.wikipedia.org/wiki/Latent_semantic_analysis) converts the product text information into features, reduces feature dimensionality, and finds similarities between products based on these features, with the most similar product being recommended to the user depending on their recommendation priorties (lowest price, most similar, etc.). 
