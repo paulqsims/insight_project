@@ -21,8 +21,9 @@ path = rootpath.detect()
 
 # Read in data
 # Use list comprehension to read in all files
-df = pd.read_csv(f"{path}/data/data_clean.csv", index_col=0).reset_index(drop=True)
+df = pd.read_csv(f"{path}/data/clean/data_clean.csv", index_col=0).reset_index(drop=True)
 
+# Remove toothpaste
 df = df[df.product_type != 'toothpaste']
 
 #df = pd.read_csv("data_clean.csv", index_col=0).reset_index(drop=True)
